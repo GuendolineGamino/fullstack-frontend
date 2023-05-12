@@ -28,7 +28,7 @@ export default function ProjectForm({onSubmit}){
     const fetchSkills = async () => {
         try {
         const response = await fetch(
-            "https://mike-skills-api-123123-default-rtdb.firebaseio.com/skills.json"
+            "https://guen-skills-api-default-rtdb.firebaseio.com/skills.json"
         );
         const data = await response.json();
         const skillsArray = data.split(",");
