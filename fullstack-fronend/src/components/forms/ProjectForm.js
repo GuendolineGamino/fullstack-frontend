@@ -153,6 +153,22 @@ export default function ProjectForm({onSubmit}){
                     />
                 </Grid>
                 <Grid item xs={12}>
+                <Controller
+                    control={ control }
+                    name='projectLink'
+                    render={ ({ field, fieldState }) => (
+                    <TextField
+                        { ...field }
+                        label='Project link'
+                        variant='outlined'
+                        fullWidth
+                        error={ !!fieldState.error }
+                        helperText={ fieldState.error?.message }
+                    />
+                    )}
+                />
+                </Grid>
+                <Grid item xs={12}>
                     <Controller
                     control={control}
                     name='imageUrl'

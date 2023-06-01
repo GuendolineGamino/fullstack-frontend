@@ -5,6 +5,8 @@ import styles from '@/styles/Home.module.css'
 import { useRouter } from 'next/router'
 import { Button } from '@mui/material'
 
+
+
 const inter = Inter({ subsets: ['latin'] })
 
 export default function Home({name, summary}) {
