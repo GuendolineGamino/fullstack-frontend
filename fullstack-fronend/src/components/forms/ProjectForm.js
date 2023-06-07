@@ -7,7 +7,7 @@ import { useEffect, useState } from 'react';
 
 
 
-export default function ProjectForm({onSubmit}){
+export default function ProjectForm({onSubmit,editValues }){
 
 
     const defaultValues = {
@@ -49,15 +49,12 @@ export default function ProjectForm({onSubmit}){
 
    
     const {control, watch, reset,handleSubmit} = useForm({
-        defaultValues,
+        defaultValues:editValues || defaultValues,
         resolver: yupResolver(projectFormSchema),
         mode: 'all'
     })
 
     const imageUrlValue = watch('imageUrl');
-
-
-
 
     return(
         <form id='project-form'

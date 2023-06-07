@@ -5,6 +5,7 @@ import EditProjectModal from "@/components/modals/EditProjectModal";
 import { Button } from "@mui/material";
 import { useEffect, useState } from "react";
 import { getProjects, updateProject } from "../../api/projects";
+import { createProject,deleteProject } from "../../api/projects";
 
 export default function Admin () {
 
@@ -22,27 +23,27 @@ export default function Admin () {
           tempProjects[projectIndex] = updatedProject;
         }
         else {
-          tempProjects.push({
-            ...values,
-            _id: projects.length + 1,
-          })
+          const newProject = await createProject(values);  
+          tempProjects.push(newProject);
         }
         setProjects(tempProjects)
       }
     
-    const handleDelete = id =>
-        setProjects(prev => prev.filter(p => p._id !== id))
+      const handleDelete = async id => {
+        const isDeleted = await deleteProject(id);
+        if (isDeleted)
+          setProjects(prev => prev.filter(p => p._id !== id))
+      }
 
-    const fetchProjects = async () =>
-    {
-        try{
-           
-            const responseJson = await getProjects();
-            setProjects(responseJson);
-        }
-        catch (error){
-            console.log(error)
-        }
+
+
+    const fetchProjects = async () => {
+    try {
+              const projects = await getProjects();
+              setProjects(projects);
+            } catch (error) {
+              console.log(error)
+            }
     }
 
 
@@ -59,8 +60,11 @@ export default function Admin () {
             > Add  new Project
             </Button>
         </div>
-            {projects.map(project => <ProjectItem key={project._id} project = {project} handleDelete={() => handleDelete(project._id)}
-          handleEdit={() => setEditProject(project)} />)}
+            { projects.map((project) => (<ProjectItem 
+            key={project._id} 
+            project = {project} 
+            handleDelete={() => handleDelete(project._id)}
+            handleEdit={() => setEditProject(project)} />))}
             <AddNewProjectModal
                 open={isNewProjectModalVisible}
                 onClose={() => setIsNewProjectModalVisible(false)}
