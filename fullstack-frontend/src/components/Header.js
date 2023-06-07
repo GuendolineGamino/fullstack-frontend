@@ -7,7 +7,7 @@ const Header = ({ src, title, children }) => {
       <Button
         startIcon={<Avatar alt="logo" src={src} />}
         sx={{
-          fontSize: "1.2rem",
+          fontSize: "1.1rem",
           color: "black",
         }}
       >
